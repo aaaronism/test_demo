@@ -1,11 +1,24 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import React, { Suspense, useEffect, useState, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
-
+import gsap from "gsap";
 import CanvasLoader from "../Loader";
 
 const Computers = () => {
   const computer = useGLTF("./desktop_pc/scene.gltf");
+  const ref = useRef();
+  const tl = useRef();
+
+  useFrame(() => {
+      tl.current.seek(scroll.offset * tl.current.duration())
+  })
+
+  useEffect(() => {
+      console.log(ref.current); // Log the value of the ref object.
+      console.log(tl.current); 
+      
+      tl.current = gsap.timeline();
+    }, []);
 
   return (
     <mesh>
